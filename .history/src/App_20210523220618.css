@@ -1,20 +1,18 @@
 .App {
+  text-align: left;
   background-color: #282c34;
 }
 
 .toggle-description {
-  text-align: left;
-  margin-top: -20px;
-  margin-left: 80px;
+  background-color: #fff;
 }
 
 .App-toggle {
-  padding-top: 320px;
-  padding-left: 1020px;
+  padding-top: 350px;
+  padding-left: 1200px;
 }
 
 .App-buttons {
-  text-align: center;
   min-height: 48vmin;
   padding-top: 10px;
   padding-left: 1000px;

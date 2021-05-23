@@ -14,10 +14,7 @@ function WelcomeMessage() {
 function App() {
   return (
     <div className="App">
-      <div className="App-toggle">
-        <ToggleSwitch Name='hello' /> <p className="toggle-description">hello</p>
-      </div>
-      
+      <ToggleSwitch Name='hello' />
       <header className="App-buttons">
         <img src={up} className="App-logo" alt="up-button" /><br></br>
         <img src={left} className="App-logo" alt="left-button" />

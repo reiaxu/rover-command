@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css';
-import ToggleSwitch from './toggle-switch/toggle-switch'
+import toggleSwitch from './toggle-switch/toggle-switch'
 
 import up from './images/up.png';
 import down from './images/down.png';
@@ -14,10 +14,7 @@ function WelcomeMessage() {
 function App() {
   return (
     <div className="App">
-      <div className="App-toggle">
-        <ToggleSwitch Name='hello' /> <p className="toggle-description">hello</p>
-      </div>
-      
+      <toggleSwitch />
       <header className="App-buttons">
         <img src={up} className="App-logo" alt="up-button" /><br></br>
         <img src={left} className="App-logo" alt="left-button" />

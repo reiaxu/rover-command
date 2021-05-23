@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <div className="App-toggle">
-        <ToggleSwitch Name='hello' /> <p className="toggle-description">hello</p>
+        <ToggleSwitch Name='hello' />
       </div>
       
       <header className="App-buttons">
