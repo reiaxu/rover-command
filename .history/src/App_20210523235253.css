@@ -4,20 +4,17 @@
 
 .App-lhs {
   background-color: #282c34;
-  padding-top: 10px;
-  padding-left: 10px;
 }
-
 .App-map {
   padding-top: 10px;
-  width: 950px;
-  height: 680px; 
+  width: 400px;
+  height: 500px; 
   border: 1px solid #fff;
 }
 
 .App-sidebar {
-  margin-top: -692px;
-  margin-left: 994px;
+  padding-top: 10px;
+  padding-left: 1000px;
 }
 
 .App-description {

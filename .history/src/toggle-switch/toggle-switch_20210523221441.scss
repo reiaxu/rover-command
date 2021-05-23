@@ -38,10 +38,10 @@
         box-sizing: border-box;
       }
       &:before {
-        content: "On";
+        content: "Yes";
         text-transform: uppercase;
         padding-left: 10px;
-        background-color: #BADA55;
+        background-color: #f90;
         color: #fff;
       }
     }
@@ -49,12 +49,12 @@
       background-color: #ddd;
       cursor: not-allowed;
       &:before {
-        background-color: #282c34;
+        background-color: #ddd;
         cursor: not-allowed;
       }
     }
     &-inner:after {
-      content: "Off";
+      content: "No";
       text-transform: uppercase;
       padding-right: 10px;
       background-color: #bbb;

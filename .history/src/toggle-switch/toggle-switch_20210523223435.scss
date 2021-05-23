@@ -46,7 +46,7 @@
       }
     }
     &-disabled {
-      background-color: #ddd;
+      background-color: #282c34;
       cursor: not-allowed;
       &:before {
         background-color: #282c34;
@@ -57,7 +57,7 @@
       content: "Off";
       text-transform: uppercase;
       padding-right: 10px;
-      background-color: #bbb;
+      background-color: #282c34;
       color: #fff;
       text-align: right;
     }

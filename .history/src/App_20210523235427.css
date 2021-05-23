@@ -10,14 +10,14 @@
 
 .App-map {
   padding-top: 10px;
-  width: 950px;
+  width: 700px;
   height: 680px; 
   border: 1px solid #fff;
 }
 
 .App-sidebar {
-  margin-top: -692px;
-  margin-left: 994px;
+  margin-top: -680px;
+  padding-left: 1000px;
 }
 
 .App-description {

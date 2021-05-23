@@ -2,27 +2,22 @@
   background-color: #282c34;
 }
 
-.App-lhs {
-  background-color: #282c34;
-  padding-top: 10px;
-  padding-left: 10px;
-}
-
-.App-map {
-  padding-top: 10px;
-  width: 950px;
-  height: 680px; 
-  border: 1px solid #fff;
+.toggle-description {
+  text-align: left;
+  margin-top: -25px;
+  margin-left: 85px;
+  color: #ddd;
 }
 
 .App-sidebar {
-  margin-top: -692px;
-  margin-left: 994px;
+  padding-top: 10px;
+  padding-left: 1000px;
+  background-color: #282c34;
 }
 
 .App-description {
-  width: 520px;
-  height: 259px;
+  width: 500px;
+  height: 260px;
   border: 1px solid #fff;
 }
 
@@ -31,13 +26,7 @@
   margin-top: -5px;
   margin-left: 30px;
   color: #ddd;
-}
 
-.toggle-description {
-  text-align: left;
-  margin-top: -25px;
-  margin-left: 85px;
-  color: #ddd;
 }
 
 .App-buttons {

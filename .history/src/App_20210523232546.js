@@ -21,26 +21,14 @@ function WelcomeMessage() {
 function App() {
   return (
     <div className="App">
-      <div className="App-lhs">
-        <header className="App-map">
-
-        </header>
-
-      </div>
-
       <div className="App-sidebar">
 
-        <header className="App-description">
-
-        </header>
-
         <header className="App-warnings">
-          <Circle center={[1004, 294]} radius={10} color='#BADA55' />
-          <p>Your rover is safe! No potential collisions detected.</p>
+        <Circle center={[1010, 280]} radius={10} color='#BADA55' />
+        <p>Your rover is safe! No potential collisions detected.</p>
         </header>
 
-        <ToggleSwitch Name='hello' /> <p className="toggle-description">Enable autonomous mode</p>
-        {/* (we could add stuff like move towards x-coloured ball etc) */}
+        <ToggleSwitch Name='hello' /> <p className="toggle-description">Enable autonomous mode (we could add stuff like move towards x-coloured ball etc)</p>
       
       
         <header className="App-buttons">

@@ -35,7 +35,7 @@ function App() {
         </header>
 
         <header className="App-warnings">
-          <Circle center={[1004, 294]} radius={10} color='#BADA55' />
+          <Circle center={[1010, 294]} radius={10} color='#BADA55' />
           <p>Your rover is safe! No potential collisions detected.</p>
         </header>
 
