@@ -28,26 +28,14 @@ import right from './images/right.png';
 
 
 function WelcomeMessage() {
-  return <p>Welcome!</p>
-}
 
-function App() {
   function moveup() {
     console.log('1');
   }
+  return <p>Welcome!</p>
+}
 
-  function movedown() {
-    console.log('2');
-  }
-
-  function moveleft() {
-    console.log('3');
-  }
   
-  function moveright() {
-    console.log('4');
-  }
-
   // var note;
   // client.on('message', function (topic, message) {
   //   note = message.toString();
@@ -87,9 +75,9 @@ function App() {
       
         <header className="App-buttons">
           <img src={up} className="App-logo" alt="up-button" onClick={moveup} /><br></br>
-          <img src={left} className="App-logo" alt="left-button" onClick={moveleft} />
-          <img src={down} className="App-logo" alt="down-button" onClick={movedown} />
-          <img src={right} className="App-logo" alt="right-button" onClick={moveright} />
+          <img src={left} className="App-logo" alt="left-button" onClick={this.moveleft} />
+          <img src={down} className="App-logo" alt="down-button" onClick={this.movedown} />
+          <img src={right} className="App-logo" alt="right-button" onClick={this.moveright} />
 
         </header>
       </div>
