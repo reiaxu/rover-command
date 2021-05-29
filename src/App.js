@@ -68,7 +68,7 @@ class App extends Component {
 }
 
 export default () => (
-  <Connector mqttProps="wss://test.mosquitto.org">
+  <Connector mqttProps="ws://test.mosquitto.org">
       <App />
   </Connector>
 );
