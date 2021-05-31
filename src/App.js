@@ -9,7 +9,9 @@ import {
   Rectangle
 } from 'draw-shape-reactjs';
 
-import { Connector } from "mqtt-react";
+import { Connector } from 'mqtt-react-hooks';
+
+import Status from './Status.js';
 import PostMqtt from './postMessage.js';
 
 import up from './images/up.png';
@@ -17,7 +19,32 @@ import down from './images/down.png';
 import left from './images/left.png';
 import right from './images/right.png';
 
-class App extends Component {
+var mqtt    = require('mqtt');
+var options = {
+	protocol: 'mqtts',
+	// clientId uniquely identifies client
+	// choose any string you wish
+	clientId: 'rover' 	
+};
+var client  = mqtt.connect('mqtt://test.mosquitto.org:8080', options);
+
+// preciouschicken.com is the MQTT topic
+client.subscribe('marsrover');
+
+
+function Frontend() {
+  var note;
+  client.on('message', function (topic, message) {
+    note = message.toString();
+    // Updates React state with message 
+    setMesg(note);
+    console.log(note);
+    client.end();
+    });
+
+  // Sets default React state 
+  const [mesg, setMesg] = useState(<Fragment><em>nothing heard</em></Fragment>);
+
   // function moveup() {
   //   console.log('1');
   // }
@@ -33,7 +60,7 @@ class App extends Component {
   // function moveright() {
   //   console.log('4');
   // }
-  render() {
+
     return (
       <div className="App">
         <div className="App-lhs">
@@ -46,6 +73,8 @@ class App extends Component {
         <div className="App-sidebar">
 
           <header className="App-description">
+            <Status />
+            <p>The message is: {mesg}</p>
     
           </header>
 
@@ -64,11 +93,18 @@ class App extends Component {
         </div>
       </div>
     );
-  }
+
 }
 
-export default () => (
-  <Connector mqttProps="ws://test.mosquitto.org">
-      <App />
-  </Connector>
-);
+export default function App() {
+  return (
+    <Connector brokerUrl="wss://localhost:8080"
+    options={{
+      keepalive:0,
+      clientId: "rover",
+    }}
+    >
+        <Frontend />
+    </Connector>
+  );
+}
