@@ -108,7 +108,8 @@ function Frontend() {
         
         
           <header className="App-buttons">
-            <img src={up} className="App-logo" alt="up-button" onClick={() => sendMessage('marsrover', '1', options)} />
+            <img src={up} className="App-logo" alt="up-button" style={{marginLeft: "100px"}} onClick={() => sendMessage('marsrover', '1', options)} />
+            <img src={rotate} className="App-logo" alt="360-button" style={{width: "10%", height: "10%"}} onClick={() => sendMessage('marsrover', '0', options)} />
             <br></br>
             <img src={left} className="App-logo" alt="left-button" onClick={() => sendMessage('marsrover', '3', options)} />
             <img src={down} className="App-logo" alt="down-button" onClick={() => sendMessage('marsrover', '2', options)} />
