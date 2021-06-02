@@ -5,10 +5,10 @@ import Select from 'react-select';
 
 const colourOptions = [
   { value: 'manual', label: 'Manual', color: '#666666' },
-  { value: 'red', label: 'Red', color: '#FF5630', isFixed: true },
+  { value: 'red', label: 'Red', color: '#FF5630' },
   { value: 'orange', label: 'Orange', color: '#FF8B00' },
   { value: 'green', label: 'Green', color: '#36B37E' },
-  { value: 'blue', label: 'Sky blue', color: '#00B8D9', isFixed: true },
+  { value: 'blue', label: 'Sky blue', color: '#00B8D9' },
   { value: 'violet', label: 'Violet', color: '#5243AA' },
 ];
 
