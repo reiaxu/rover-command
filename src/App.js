@@ -1,13 +1,10 @@
 import React, { useState, Fragment, Component } from 'react';
 import './App.css';
-import ToggleSwitch from './toggle-switch/toggle-switch';
 import {
-  Line,
-  SteppedLine,
-  PolyLine,
   Circle,
-  Rectangle
 } from 'draw-shape-reactjs';
+
+import Colorselect from './selectColour.js';
 
 import up from './images/up.png';
 import down from './images/down.png';
@@ -18,9 +15,9 @@ import rotate from './images/rotate.png';
 import ReactDOM from 'react-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBatteryThreeQuarters, faBolt, faDotCircle } from '@fortawesome/free-solid-svg-icons';
+import { faBatteryThreeQuarters, faBolt, faDotCircle, faCircle } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faBatteryThreeQuarters, faBolt, faDotCircle);
+library.add(faBatteryThreeQuarters, faBolt, faDotCircle, faCircle);
 
 var mqtt    = require('mqtt');
 var count = 0;
@@ -78,7 +75,6 @@ function Frontend() {
       //   client.end();	
     }
 
-
     return (
       <div className="App">
         <div className="App-lhs">
@@ -99,11 +95,11 @@ function Frontend() {
           </header>
 
           <header className="App-warnings">
-            <Circle center={[1004, 294]} radius={10} color='#BADA55' />
+            <Circle center={[1004, 288]} radius={10} color='#BADA55' />
             <p>Your rover is safe! No potential collisions detected.</p>
           </header>
 
-          <ToggleSwitch Name='toggle' /> <p className="toggle-description">Enable autonomous mode</p>
+          <Colorselect Name='select' /> <p className="toggle-description">Enable autonomous mode</p>
           {/* (we could add stuff like move towards x-coloured ball etc) */}
         
         
