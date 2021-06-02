@@ -95,13 +95,12 @@ function Frontend() {
           </header>
 
           <header className="App-warnings">
-            <Circle center={[1004, 288]} radius={10} color='#BADA55' />
+            <Circle center={[1004, 300]} radius={10} color='#BADA55' />
             <p>Your rover is safe! No potential collisions detected.</p>
           </header>
-
-          <Colorselect Name='select' /> <p className="toggle-description">Enable autonomous mode</p>
-          {/* (we could add stuff like move towards x-coloured ball etc) */}
-        
+          {/* <p className="toggle-description">Enable autonomous mode</p> */}
+          <Colorselect Name='select' /> 
+          
         
           <header className="App-buttons">
             <img src={up} className="App-logo" alt="up-button" style={{marginLeft: "100px"}} onClick={() => sendMessage('marsrover', '1', options)} />
