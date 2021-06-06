@@ -1,10 +1,11 @@
 import React, { useState, Fragment, Component } from 'react';
 import './App.css';
-import {
-  Circle,
-} from 'draw-shape-reactjs';
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import { Circle } from 'draw-shape-reactjs';
 
 import Colorselect from './selectColour.js';
+import Canvas from './map/map.js';
 
 import up from './images/up.png';
 import down from './images/down.png';
@@ -33,16 +34,6 @@ var client  = mqtt.connect('wss://test.mosquitto.org:8081', options);
 // MQTT topic
 client.subscribe('marsrovercoord'); // topic that coodinates are sent over
 
-  client.on("connect",function(){	
-    console.log("connected  "+ client.connected);
-    // client.publish('marsrover','connected',options);
-  });
-
-  client.on("error",function(error){
-    console.log("Can't connect" + error);
-    // process.exit(1)
-  });
-
 function Frontend() {
   var note;
 
@@ -51,7 +42,13 @@ function Frontend() {
   const [connectionStatus, setConnectionStatus] = useState(<Fragment><em>Not connected</em></Fragment>);
 
   client.on("connect",function(){	
+    console.log("connected  "+ client.connected);
     setConnectionStatus("Connected");
+  });
+
+  client.on("error",function(error){
+    console.log("Can't connect" + error);
+    setConnectionStatus("Disconnected");
   });
   
   client.on('message', function (topic, message, packet) {
@@ -79,7 +76,7 @@ function Frontend() {
       <div className="App">
         <div className="App-lhs">
           <header className="App-map">
-
+            <Canvas/>
           </header>
 
         </div>
@@ -88,23 +85,24 @@ function Frontend() {
 
           <header className="App-description">
 
-          <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="bolt" /> Connection status: {connectionStatus}</p>
+          <p style={{paddingLeft: "10px", paddingTop: "10px"}}><FontAwesomeIcon icon="bolt" /> Connection status: {connectionStatus}</p>
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="dot-circle" /> Coordinate received: {mesg}</p>
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="battery-three-quarters" /> Battery status: </p>
     
           </header>
 
-          <header className="App-warnings">
+          {/* <header className="App-warnings">
             <Circle center={[1004, 300]} radius={10} color='#BADA55' />
             <p>Your rover is safe! No potential collisions detected.</p>
+          </header> */}
+
+          <header className="color-selector">
+            <Colorselect Name='select' /> 
           </header>
-          {/* <p className="toggle-description">Enable autonomous mode</p> */}
-          <Colorselect Name='select' /> 
-          
         
           <header className="App-buttons">
-            <img src={up} className="App-logo" alt="up-button" style={{marginLeft: "100px"}} onClick={() => sendMessage('marsrover', '1', options)} />
-            <img src={rotate} className="App-logo" alt="360-button" style={{width: "10%", height: "10%"}} onClick={() => sendMessage('marsrover', '0', options)} />
+            <img src={up} className="App-logo" alt="up-button" style={{marginLeft: "90px"}} onClick={() => sendMessage('marsrover', '1', options)} />
+            <img src={rotate} className="App-logo" alt="360-button" style={{width: "15%", height: "15%", marginTop: "65px"}} onClick={() => sendMessage('marsrover', '0', options)} />
             <br></br>
             <img src={left} className="App-logo" alt="left-button" onClick={() => sendMessage('marsrover', '3', options)} />
             <img src={down} className="App-logo" alt="down-button" onClick={() => sendMessage('marsrover', '2', options)} />

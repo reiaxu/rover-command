@@ -4,12 +4,12 @@ import chroma from 'chroma-js';
 import Select from 'react-select';
 
 const colourOptions = [
-  { value: 'manual', label: 'Manual', color: '#666666' },
-  { value: 'red', label: 'Red', color: '#FF5630' },
-  { value: 'orange', label: 'Orange', color: '#FF8B00' },
-  { value: 'green', label: 'Green', color: '#36B37E' },
-  { value: 'blue', label: 'Sky blue', color: '#00B8D9' },
-  { value: 'violet', label: 'Violet', color: '#5243AA' },
+  { value: 'm', label: 'Manual', color: '#666666' },
+  { value: 'r', label: 'Red', color: '#FF5630' },
+  { value: 'o', label: 'Orange', color: '#FF8B00' },
+  { value: 'g', label: 'Green', color: '#36B37E' },
+  { value: 's', label: 'Sky blue', color: '#00B8D9' },
+  { value: 'v', label: 'Violet', color: '#5243AA' },
 ];
 
 const dot = (color = '#ccc') => ({
@@ -61,11 +61,50 @@ const colourStyles = {
   singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
 };
 
-export default () => (
-  <Select
-    defaultValue={colourOptions[0]}
-    label="Single select"
-    options={colourOptions}
-    styles={colourStyles}
-  />
-);
+var mqtt    = require('mqtt');
+var count = 0;
+var options = {
+	protocol: 'mqtts',
+	// clientId uniquely identifies client
+	// choose any string you wish
+	clientId: 'rover',
+  keepalive:0, 	
+};
+var client  = mqtt.connect('wss://test.mosquitto.org:8081', options);
+
+export default class App extends React.Component {
+    state = {
+      selectedOption: colourOptions[0],
+    };
+    handleChange = selectedOption => {
+      this.setState({ selectedOption });
+      console.log(`Option selected:`, selectedOption.value);
+      if (client.connected == true){
+        client.publish("marsrovercolour",selectedOption.value,options);
+        }
+    };
+    render() {
+      const { selectedOption } = this.state;
+  
+      return (
+        <Select
+          defaultValue={colourOptions[0]}
+          value={selectedOption}
+          onChange={this.handleChange}
+          label="Single select"
+          options={colourOptions}
+          styles={colourStyles}
+        />
+      );
+    }
+  }
+
+// export default () => (
+//   <Select
+//     defaultValue={colourOptions[0]}
+//     onChange={() => sendMessage('marsrovercolour', colourOptions.value, options)}
+//     label="Single select"
+//     options={colourOptions}
+//     styles={colourStyles}
+//   />
+// );

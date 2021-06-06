@@ -16,13 +16,13 @@
 }
 
 .App-sidebar {
-  margin-top: -692px;
+  margin-top: -680px;
   margin-left: 994px;
 }
 
 .App-description {
   width: 520px;
-  height: 267px;
+  height: 277px;
   border: 1px solid #fff;
   color: #ddd;
 }
@@ -34,17 +34,16 @@
   color: #ddd;
 }
 
-.toggle-description {
+.color-selector {
   text-align: left;
-  margin-top: -25px;
-  margin-left: 85px;
-  color: #ddd;
+  margin-top: 25px;
 }
 
 .App-buttons {
   text-align: center;
   min-height: 48vmin;
-  padding-top: 10px;
+  padding-top: 50px;
+  padding-bottom: 25px;
 
 }
 
