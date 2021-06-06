@@ -89,7 +89,7 @@ function Frontend() {
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="dot-circle" /> Coordinate received: {mesg}</p>
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="battery-three-quarters" /> Battery status: </p>
     
-          </header>
+          </header> 
 
           {/* <header className="App-warnings">
             <Circle center={[1004, 300]} radius={10} color='#BADA55' />
