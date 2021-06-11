@@ -21,17 +21,14 @@ app.get('/', (req, res) => {
 // app.use('/api', ballRouter)
 
 const { MongoClient } = require("mongodb");
-var mqtt = require("mqtt");
+var mqtt     = require('mqtt');
 var mqttUri  = 'wss://test.mosquitto.org:8081';
-var options = {
-	protocol: 'mqtts',
-	// clientId uniquely identifies client
-	// choose any string you wish
-	clientId: 'rover',
-  keepalive:0, 	
-};
-var mqttclient = mqtt.connect(mqttUri, options);
-mqttclient.subscribe('marsroverballs')
+var mqttclient   = mqtt.connect(mqttUri);
+
+mqttclient.on('connect', function () {
+    mqttclient.subscribe("marsroverballs");
+    console.log('connected')
+});
 
 // Replace the uri string with your MongoDB deployment's connection string.
 const uri =
@@ -39,45 +36,52 @@ const uri =
 
 const client = new MongoClient(uri);
 
-async function run() {
+MongoClient.connect(uri, function(error, client) {
+    var database = client.db('map')
+    if(error != null) {
+        throw error;
+    }
 
-    mqttclient.on('connect', function () {
-        //mqttclient.subscribe(config.mqtt.namespace);
-        console.log("connected  "+ client.connected);
-    });
-  try {
-    await client.connect();
+    var collection = database.collection('balls');
+    collection.createIndex( 
+    { "topic" : 1, "xcoord" : 1, "ycoord" : 1, "dist" : 1 } );
 
-    const database = client.db('map');
-    const balls = database.collection('balls');
-    console.log('hi')
-    
-    
-    
-
-    client.on('message', function (topic, message) {
-        console.log('hi2')
-        var messageObject = {
+    mqttclient.on('message', function (topic, message) {
+        console.log(message.toString());
+        var filter = {colour: message.toString().substring(0,1)};
+        const options = { upsert: true };
+        var messageObject = { $set: {
             colour: message.toString().substring(0,1),
-            // xcoord: 
-            // ycoord:
-            // dist:
-        };
+            xcoord: parseInt(message.toString().substring(1,5)),
+            ycoord: parseInt(message.toString().substring(5,9)),
+            dist: parseInt(message.toString().substring(9,13)),
+        }};
 
-        balls.insertOne(messageObject, function(error, result) {
+        collection.findOneAndUpdate(filter, messageObject, options, function(error, result) {
             if(error != null) {
                 console.log("ERROR: " + error);
             }
         });
     });
+});
+
+async function run() {
+
+  try {
+    await client.connect();
+
+
+    const database = client.db('map');
+    const balls = database.collection('balls');
+
 
     // Query for a movie that has the title 'Back to the Future'
 
-    const red = await balls.findOne({ colour: 'red' }); 
-    const orange = await balls.findOne({ colour: 'orange' }); 
-    const green = await balls.findOne({ colour: 'green' }); 
-    const blue = await balls.findOne({ colour: 'blue' }); 
-    const violet = await balls.findOne({ colour: 'violet' }); 
+    const red = await balls.findOne({ colour: 'r' }); 
+    const orange = await balls.findOne({ colour: 'o' }); 
+    const green = await balls.findOne({ colour: 'g' }); 
+    const blue = await balls.findOne({ colour: 'b' }); 
+    const violet = await balls.findOne({ colour: 'v' }); 
 
     console.log(red,orange,green,blue,violet);
     app.get("/api", (req, res) => {
@@ -89,8 +93,5 @@ async function run() {
   }
 }
 run().catch(console.dir);
-
-
-
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))

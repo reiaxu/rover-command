@@ -9,12 +9,14 @@ import Canvas from './map/map.js';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import BallsList from './data/database.js'
 
 import up from './images/up.png';
 import down from './images/down.png';
 import left from './images/left.png';
 import right from './images/right.png';
 import rotate from './images/rotate.png';
+import turn from './images/turn.png';
 
 import ReactDOM from 'react-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -170,11 +172,12 @@ function Frontend() {
           </header>
         
           <header className="App-buttons">
-            <img src={up} className="App-logo" alt="up-button" style={{marginLeft: "90px"}} onClick={() => sendMessage('marsrover', '1', options)} />
+            <img src={turn} className="App-logo" alt="180-button" style={{width: "15%", height: "15%", marginTop: "65px"}} onClick={() => sendMessage('marsrover', '5', options)} />
+            <img src={up} className="App-logo" alt="up-button" onClick={() => sendMessage('marsrover', '1', options)} />
             <img src={rotate} className="App-logo" alt="360-button" style={{width: "15%", height: "15%", marginTop: "65px"}} onClick={() => sendMessage('marsrover', '6', options)} />
             <br></br>
             <img src={left} className="App-logo" alt="left-button" onClick={() => sendMessage('marsrover', '3', options)} />
-            <img src={down} className="App-logo" alt="down-button" onClick={() => sendMessage('marsrover', '5', options)} />
+            <img src={down} className="App-logo" alt="down-button" onClick={() => sendMessage('marsrover', '2', options)} />
             <img src={right} className="App-logo" alt="right-button" onClick={() => sendMessage('marsrover', '4', options)} />
           </header>
         </div>
