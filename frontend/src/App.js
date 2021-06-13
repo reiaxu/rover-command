@@ -112,7 +112,7 @@ function Frontend() {
 
           <p style={{paddingLeft: "10px", paddingTop: "4px"}}><FontAwesomeIcon icon="bolt" /> Connection status: {connectionStatus}</p>
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="dot-circle" /> Coordinate received: {mesg}</p>
-          {/* <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="battery-three-quarters" /> Battery status: </p> */}
+          <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="battery-three-quarters" /> Battery status: </p> 
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#FF5630"}} /> Distance from red ball: {!data ? "Loading..." : data.red.dist} </p>
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#FF8B00"}} /> Distance from orange ball: {!data ? "Loading..." : data.orange.dist} </p>
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#36B37E"}} /> Distance from green ball: {!data ? "Loading..." : data.green.dist} </p>

@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 const { MongoClient } = require("mongodb");
 var mqtt     = require('mqtt');
-var mqttUri  = 'wss://test.mosquitto.org:8081';
+var mqttUri  = 'wss://test.mosquitto.org:1883';
 var mqttclient   = mqtt.connect(mqttUri);
 
 mqttclient.on('connect', function () {
@@ -35,6 +35,8 @@ const uri =
   "mongodb://localhost:27017";
 
 const client = new MongoClient(uri);
+
+
 
 MongoClient.connect(uri, function(error, client) {
     var database = client.db('map')
