@@ -14,6 +14,7 @@ var client  = mqtt.connect('wss://test.mosquitto.org:8081', options);
 client.subscribe("marsrover");
 client.subscribe('marsrovercoord'); // topic that coodinates are sent over
 var note;
+var rotate;
 
 const Canvas = props => {
 
@@ -29,16 +30,18 @@ const Canvas = props => {
       console.log(data);
   },[data]);
 
-
-  
-
   // Sets default React state 
   const [mesg, setMesg] = useState();
   
   client.on('message', function (topic, message, packet) {
-    note = message.toString();
-    // Updates React state with message 
-    setMesg(note);
+    if (message.toString().length > 1) {
+      note = message.toString();
+      // Updates React state with message 
+      setMesg(note);
+    }
+    else {
+      rotate = message.toString();
+    }
     });
 
   const canvasRef = useRef(null)
@@ -53,46 +56,32 @@ const Canvas = props => {
     imageObj1.src = 'https://image.flaticon.com/icons/png/512/1767/1767183.png'
     imageObj1.onload = function() {
         console.log("Coord received " + note);
-        if (note == "3") {
+        console.log("rotate "+ rotate);
+        if (rotate == "3") {
           ctx.translate(25, 25);
           ctx.rotate(-90 * Math.PI / 180);
           ctx.translate(-25, -25);
-        } // turn left
+        } // west
 
-        if (note == "4") {
+        if (rotate == "4") {
           ctx.translate(25, 25);
           ctx.rotate(90 * Math.PI / 180);
           ctx.translate(-25, -25);
-        } // turn right 
+        } // east
 
-        if (note == "5") {
+        if (rotate == "5") {
           ctx.translate(25, 25);
           ctx.rotate(180 * Math.PI / 180);
           ctx.translate(-25, -25);
-        } // turn 180 
+        } // south
 
-        if (note == "6") {
+        if (rotate == "6") {
           ctx.translate(25, 25);
           ctx.rotate(360 * Math.PI / 180);
           ctx.translate(-25, -25);
-        } // turn 360 
+        } // north 
 
-        ctx.drawImage(imageObj1,0,0, 50, 50);
-        
-        
-        // if ({mesg} == "3") {
-        //   ctx.rotate(-90 * Math.PI / 180)
-        //   console.log("3 received")
-        // }
-        // if (note == "4") {
-        //   ctx.rotate(90 * Math.PI / 180)
-        // }
-        // if (note == "5") {
-        //   roverRotate(180)
-        // }
-        // if (note == "5") {
-        //   roverRotate(360)
-        // }
+        ctx.drawImage(imageObj1, (!note) ? 0 : note.substring(0,note.length/2), (!note) ? 0 : note.substring(note.length/2, note.length) , 50, 50);
     }
 
 

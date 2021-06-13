@@ -40,68 +40,22 @@ var client  = mqtt.connect('wss://test.mosquitto.org:8081', options);
 client.subscribe('marsrovercoord'); // topic that coodinates are sent over
 
 
-// mongodb
-// var mongodb=require('mongodb');
-// var mongodbClient=mongodb.MongoClient;
-// var mongodbURI='mongodb://mongodb:27017';
-// var deviceRoot="marsroverdb";
-// var collection, dbclient;
-
-// mongodbClient.connect(mongodbURI, function(err, db) {
-//   if(err) throw err;
-//   var db = dbclient.db('map');
-
-// 	collection=db.collection("balls");
-// 	dbclient=mqtt.connect('wss://test.mosquitto.org:8081', options);
-// 	client.subscribe(deviceRoot+"+");
-// 	dbclient.on('message', insertEvent);
-// });
-
-// function insertEvent(topic,message) {
-//   console.log("data: " + message)
-//   var key=topic.replace(deviceRoot,'');
-
-//   collection.update(
-//     { _id:key }, 
-//     { $push: { events: { event: {  value:message, when:new Date() } } } }, 
-//      { upsert:true },
-//      function(err,docs) {
-//       if(err) {
-//         console.log("Insert fail");	// Improve error handling		
-//       }
-//     }
-//   );
-// }
-
-// var mongodb  = require('mongodb');
-
-// var mongoUri = 'mongodb://localhost?authSource=admin';
-// mongodb.MongoClient.connect(mongoUri, function(error, dbclient) {
-//     if(error != null) {
-//         throw error;
-//     }
-
-//     var db = dbclient.db('map');
-//     var collection = db.collection('balls');
-//     collection.createIndex( { "topic" : 1 } );
-
-//     client.on('message', function (topic, message) {
-//         var messageObject = {
-//             topic: topic,
-//             message: message.toString()
-//         };
-
-//         collection.insert(messageObject, function(error, result) {
-//             if(error != null) {
-//                 console.log("ERROR: " + error);
-//             }
-//         });
-//     });
-// });
-
 // frontend
 
 function Frontend() {
+
+  const [data, setData] = React.useState(null);
+
+    React.useEffect(() => {
+      fetch("/api")
+        .then((res) => res.json())
+        .then((data) => setData(data));
+        
+    }, []);
+    React.useEffect(()=>{        
+      console.log(data);
+  },[data]);
+
   var note;
 
   // Sets default React state 
@@ -156,10 +110,14 @@ function Frontend() {
 
           <header className="App-description">
 
-          <p style={{paddingLeft: "10px", paddingTop: "10px"}}><FontAwesomeIcon icon="bolt" /> Connection status: {connectionStatus}</p>
+          <p style={{paddingLeft: "10px", paddingTop: "4px"}}><FontAwesomeIcon icon="bolt" /> Connection status: {connectionStatus}</p>
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="dot-circle" /> Coordinate received: {mesg}</p>
-          <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="battery-three-quarters" /> Battery status: </p>
-    
+          {/* <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="battery-three-quarters" /> Battery status: </p> */}
+          <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#FF5630"}} /> Distance from red ball: {!data ? "Loading..." : data.red.dist} </p>
+          <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#FF8B00"}} /> Distance from orange ball: {!data ? "Loading..." : data.orange.dist} </p>
+          <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#36B37E"}} /> Distance from green ball: {!data ? "Loading..." : data.green.dist} </p>
+          <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#00B8D9"}} /> Distance from blue ball: {!data ? "Loading..." : data.blue.dist} </p>
+          <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#5243AA"}} /> Distance from violet ball: {!data ? "Loading..." : data.violet.dist} </p>
           </header> 
 
           {/* <header className="App-warnings">
