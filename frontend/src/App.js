@@ -34,7 +34,7 @@ var options = {
 	clientId: 'rover',
   keepalive:0, 	
 };
-var client  = mqtt.connect('wss://test.mosquitto.org:8081', options);
+var client  = mqtt.connect('wss://localhost:8081', options);
 
 // MQTT topic
 client.subscribe('marsrovercoord'); // topic that coodinates are sent over
