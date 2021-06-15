@@ -2,7 +2,7 @@ import React, { useState, Fragment, Component } from 'react';
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { Circle } from 'draw-shape-reactjs';
+// import { Circle } from 'draw-shape-reactjs';
 
 import Colorselect from './selectColour.js';
 import Canvas from './map/map.js';
@@ -29,8 +29,8 @@ var mqtt    = require('mqtt');
 var count = 0;
 var options = {
   protocol: 'ws',
-  username: 'rover',
-  password: 'marsrover',
+  // username: 'rover',
+  // password: 'marsrover',
   keepalive: 60,
   reconnectPeriod: 1000,
 };

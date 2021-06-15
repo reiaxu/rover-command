@@ -65,8 +65,8 @@ var mqtt    = require('mqtt');
 var count = 0;
 var options = {
   protocol: 'ws',
-  username: 'rover',
-  password: 'marsrover',
+  // username: 'rover',
+  // password: 'marsrover',
   keepalive: 60,
   reconnectPeriod: 1000,
 };

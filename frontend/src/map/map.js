@@ -3,8 +3,8 @@ import React, { useState, useRef, useEffect } from 'react'
 var mqtt    = require('mqtt');
 var options = {
   protocol: 'ws',
-  username: 'rover',
-  password: 'marsrover',
+  // username: 'rover',
+  // password: 'marsrover',
   keepalive: 60,
   reconnectPeriod: 1000,
 };
