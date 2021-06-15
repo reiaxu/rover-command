@@ -2,8 +2,6 @@ import React, { useState, Fragment, Component } from 'react';
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
-// import { Circle } from 'draw-shape-reactjs';
-
 import Colorselect from './selectColour.js';
 import Canvas from './map/map.js';
 
@@ -36,26 +34,6 @@ var options = {
 };
 var client  = mqtt.connect('ws://localhost:8081', options);
  
-
-// AWS.config.region = 'us-east-1' // your region
-// AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-//   IdentityPoolId: 'us-east-1:4c401337-1b4e-43f4-962f-b56b513f2150',
-// });
-
-// const client = new AWSMqttClient({
-//   region: AWS.config.region,
-//   credentials: AWS.config.credentials,
-//   endpoint: 'aliowe90dtiwt-ats.iot.us-east-1.amazonaws.com', // NOTE: See below on how to get the endpoint domain
-//   expires: 600, // Sign url with expiration of 600 seconds
-//   clientId: '6sumb39hv8b187ak5osp19ukpg', // clientId to register with MQTT broker. Need to be unique per client
-//   will: {
-//       topic: 'marsrover',
-//       payload: 'Connection Closed abnormally..!',
-//       qos: 0,
-//       retain: false
-//   } 
-// })
-
 // MQTT topic
 client.subscribe('marsrovercoord'); // topic that coodinates are sent over
 
@@ -107,11 +85,7 @@ function Frontend() {
           
       client.publish(topic,msg,options);
         
-      }
-      // count+=1;
-      // if (count==2) //end script
-      //   // clearTimeout(timer_id); //stop timer
-      //   client.end();	
+      }	
     }
 
     return (
@@ -132,18 +106,13 @@ function Frontend() {
 
           <p style={{paddingLeft: "10px", paddingTop: "4px"}}><FontAwesomeIcon icon="bolt" /> Connection status: {connectionStatus}</p>
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="dot-circle" /> Coordinate received: {mesg}</p>
-          <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="battery-three-quarters" /> Battery status: </p> 
+          {/* <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="battery-three-quarters" /> Battery status: </p>  */}
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#FF5630"}} /> Distance from red ball: {!data ? "Loading..." : data.red.dist} </p>
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#FF8B00"}} /> Distance from orange ball: {!data ? "Loading..." : data.orange.dist} </p>
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#36B37E"}} /> Distance from green ball: {!data ? "Loading..." : data.green.dist} </p>
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#00B8D9"}} /> Distance from blue ball: {!data ? "Loading..." : data.blue.dist} </p>
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#5243AA"}} /> Distance from violet ball: {!data ? "Loading..." : data.violet.dist} </p>
-          </header> 
-
-          {/* <header className="App-warnings">
-            <Circle center={[1004, 300]} radius={10} color='#BADA55' />
-            <p>Your rover is safe! No potential collisions detected.</p>
-          </header> */}
+          </header>
 
           <header className="color-selector">
             <Colorselect Name='select' /> 

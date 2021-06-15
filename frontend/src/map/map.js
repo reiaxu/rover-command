@@ -10,25 +10,6 @@ var options = {
 };
 var client  = mqtt.connect('ws://localhost:8081', options);
 
-// AWS.config.region = 'us-east-1' // your region
-// AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-//   IdentityPoolId: 'us-east-1:4c401337-1b4e-43f4-962f-b56b513f2150',
-// });
-
-// const client = new AWSMqttClient({
-//   region: AWS.config.region,
-//   credentials: AWS.config.credentials,
-//   endpoint: 'aliowe90dtiwt-ats.iot.us-east-1.amazonaws.com', // NOTE: See below on how to get the endpoint domain
-//   expires: 600, // Sign url with expiration of 600 seconds
-//   clientId: '6sumb39hv8b187ak5osp19ukpg', // clientId to register with MQTT broker. Need to be unique per client
-//   will: {
-//       topic: 'marsrover',
-//       payload: 'Connection Closed abnormally..!',
-//       qos: 0,
-//       retain: false
-//   } 
-// })
-
 // MQTT topic
 client.subscribe("marsrover");
 client.subscribe('marsrovercoord'); // topic that coodinates are sent over
@@ -134,9 +115,6 @@ const Canvas = props => {
       ctx.beginPath()
       ctx.arc(!data ? "Loading..." :data.violet.xcoord, !data ? "Loading..." :data.violet.ycoord, 10, 0, 2*Math.PI)
       ctx.fill()
-  
-     
-
   }
   
   useEffect(() => {
