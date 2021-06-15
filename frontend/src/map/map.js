@@ -1,8 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
 
-import AWS from 'aws-sdk/global'
-import AWSMqttClient from 'aws-mqtt'
-
 var mqtt    = require('mqtt');
 var options = {
   protocol: 'ws',

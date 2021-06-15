@@ -23,9 +23,6 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBatteryThreeQuarters, faBolt, faDotCircle, faCircle } from '@fortawesome/free-solid-svg-icons';
 
-import AWS from 'aws-sdk/global'
-import AWSMqttClient from 'aws-mqtt'
-
 library.add(faBatteryThreeQuarters, faBolt, faDotCircle, faCircle);
 
 var mqtt    = require('mqtt');

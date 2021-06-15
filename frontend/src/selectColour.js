@@ -3,9 +3,6 @@ import chroma from 'chroma-js';
 
 import Select from 'react-select';
 
-import AWS from 'aws-sdk/global'
-import AWSMqttClient from 'aws-mqtt'
-
 const colourOptions = [
   { value: 'm', label: 'Manual', color: '#666666' },
   { value: 'r', label: 'Red', color: '#FF5630' },
