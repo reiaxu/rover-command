@@ -22,13 +22,50 @@ app.get('/', (req, res) => {
 
 const { MongoClient } = require("mongodb");
 var mqtt     = require('mqtt');
-var mqttUri  = 'wss://localhost:8081';
-var mqttclient   = mqtt.connect(mqttUri);
+var mqttUri  = 'ws://localhost:8081';
+
+var options = {
+  protocol: 'ws',
+  username: 'rover',
+  password: 'marsrover',
+  keepalive: 60,
+  reconnectPeriod: 1000,
+};
+
+var mqttclient   = mqtt.connect(mqttUri, options);
 
 mqttclient.on('connect', function () {
     mqttclient.subscribe("marsroverballs");
     console.log('connected')
 });
+
+// const AWS = require('aws-sdk')
+// const AWSMqttClient = require('aws-mqtt/lib/NodeClient')
+ 
+// AWS.config.region = 'us-east-1' 
+// AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+//     IdentityPoolId: 'us-east-1:4c401337-1b4e-43f4-962f-b56b513f2150',
+// });
+ 
+// const mqttclient = new AWSMqttClient({
+//   region: AWS.config.region,
+//   credentials: AWS.config.credentials,
+//   endpoint: 'aliowe90dtiwt-ats.iot.us-east-1.amazonaws.com', // NOTE: get this value with `aws iot describe-endpoint`
+//   clientId: '6sumb39hv8b187ak5osp19ukpg', // clientId to register with MQTT broker. Need to be unique per client
+//   caPath: "rx319-key-pair-06-02-21.pem",
+//   protocol: "wss",
+//   will: {
+//     topic: 'marsrover',
+//     payload: 'Connection Closed abnormally..!',
+//     qos: 0,
+//     retain: false
+//   } 
+// })
+
+// mqttclient.on('connect', function () {
+//     mqttclient.subscribe("marsroverballs");
+//     console.log('connected')
+// });
 
 // Replace the uri string with your MongoDB deployment's connection string.
 const uri =

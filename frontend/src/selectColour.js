@@ -3,6 +3,9 @@ import chroma from 'chroma-js';
 
 import Select from 'react-select';
 
+import AWS from 'aws-sdk/global'
+import AWSMqttClient from 'aws-mqtt'
+
 const colourOptions = [
   { value: 'm', label: 'Manual', color: '#666666' },
   { value: 'r', label: 'Red', color: '#FF5630' },
@@ -64,13 +67,32 @@ const colourStyles = {
 var mqtt    = require('mqtt');
 var count = 0;
 var options = {
-	protocol: 'mqtts',
-	// clientId uniquely identifies client
-	// choose any string you wish
-	clientId: 'rover',
-  keepalive:0, 	
+  protocol: 'ws',
+  username: 'rover',
+  password: 'marsrover',
+  keepalive: 60,
+  reconnectPeriod: 1000,
 };
-var client  = mqtt.connect('wss://localhost:8081', options);
+var client  = mqtt.connect('ws://localhost:8081', options);
+
+// AWS.config.region = 'us-east-1' // your region
+// AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+//   IdentityPoolId: 'us-east-1:4c401337-1b4e-43f4-962f-b56b513f2150',
+// });
+
+// const client = new AWSMqttClient({
+//   region: AWS.config.region,
+//   credentials: AWS.config.credentials,
+//   endpoint: 'aliowe90dtiwt-ats.iot.us-east-1.amazonaws.com', // NOTE: See below on how to get the endpoint domain
+//   expires: 600, // Sign url with expiration of 600 seconds
+//   clientId: '6sumb39hv8b187ak5osp19ukpg', // clientId to register with MQTT broker. Need to be unique per client
+//   will: {
+//       topic: 'marsrover',
+//       payload: 'Connection Closed abnormally..!',
+//       qos: 0,
+//       retain: false
+//   } 
+// })
 
 export default class App extends React.Component {
     state = {
@@ -80,7 +102,7 @@ export default class App extends React.Component {
       this.setState({ selectedOption });
       console.log(`Option selected:`, selectedOption.value);
       if (client.connected == true){
-        client.publish("marsrovercolour",selectedOption.value,options);
+        client.publish("marsrovercolour",selectedOption.value, options);
         }
     };
     render() {

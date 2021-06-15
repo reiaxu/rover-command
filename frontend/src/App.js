@@ -23,18 +23,41 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBatteryThreeQuarters, faBolt, faDotCircle, faCircle } from '@fortawesome/free-solid-svg-icons';
 
+import AWS from 'aws-sdk/global'
+import AWSMqttClient from 'aws-mqtt'
+
 library.add(faBatteryThreeQuarters, faBolt, faDotCircle, faCircle);
 
 var mqtt    = require('mqtt');
 var count = 0;
 var options = {
-	protocol: 'mqtts',
-	// clientId uniquely identifies client
-	// choose any string you wish
-	clientId: 'rover',
-  keepalive:0, 	
+  protocol: 'ws',
+  username: 'rover',
+  password: 'marsrover',
+  keepalive: 60,
+  reconnectPeriod: 1000,
 };
-var client  = mqtt.connect('wss://localhost:8081', options);
+var client  = mqtt.connect('ws://localhost:8081', options);
+ 
+
+// AWS.config.region = 'us-east-1' // your region
+// AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+//   IdentityPoolId: 'us-east-1:4c401337-1b4e-43f4-962f-b56b513f2150',
+// });
+
+// const client = new AWSMqttClient({
+//   region: AWS.config.region,
+//   credentials: AWS.config.credentials,
+//   endpoint: 'aliowe90dtiwt-ats.iot.us-east-1.amazonaws.com', // NOTE: See below on how to get the endpoint domain
+//   expires: 600, // Sign url with expiration of 600 seconds
+//   clientId: '6sumb39hv8b187ak5osp19ukpg', // clientId to register with MQTT broker. Need to be unique per client
+//   will: {
+//       topic: 'marsrover',
+//       payload: 'Connection Closed abnormally..!',
+//       qos: 0,
+//       retain: false
+//   } 
+// })
 
 // MQTT topic
 client.subscribe('marsrovercoord'); // topic that coodinates are sent over
