@@ -93,14 +93,14 @@ async function run() {
 }
 run().catch(console.dir);
 
-// Accessing the path module
-const path = require("path");
+// // Accessing the path module
+// const path = require("path");
 
-// Step 1:
-app.use(express.static(path.resolve(__dirname, "./frontend/build")));
-// Step 2:
-app.get("*", function (request, response) {
-  response.sendFile(path.resolve(__dirname, "./frontend/build", "index.html"));
-});
+// // Step 1:
+// app.use(express.static(path.resolve(__dirname, "./frontend/build")));
+// // Step 2:
+// app.get("*", function (request, response) {
+//   response.sendFile(path.resolve(__dirname, "./frontend/build", "index.html"));
+// });
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
