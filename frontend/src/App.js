@@ -7,7 +7,6 @@ import Canvas from './map/map.js';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import BallsList from './data/database.js'
 
 import up from './images/up.png';
 import down from './images/down.png';
@@ -36,7 +35,6 @@ var client  = mqtt.connect('ws://localhost:8081', options);
  
 // MQTT topic
 client.subscribe('marsrovercoord'); // topic that coodinates are sent over
-
 
 // frontend
 
@@ -93,9 +91,6 @@ function Frontend() {
         <div className="App-lhs">
           <header className="App-map">
             <Canvas/>
-            {/* <Router>
-                <Route path="/" component={BallsList} />
-            </Router> */}
           </header>
 
         </div>
@@ -106,7 +101,7 @@ function Frontend() {
 
           <p style={{paddingLeft: "10px", paddingTop: "4px"}}><FontAwesomeIcon icon="bolt" /> Connection status: {connectionStatus}</p>
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="dot-circle" /> Coordinate received: {mesg}</p>
-          {/* <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="battery-three-quarters" /> Battery status: </p>  */}
+          <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="battery-three-quarters" /> Battery status: </p> 
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#FF5630"}} /> Distance from red ball: {!data ? "Loading..." : data.red.dist} </p>
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#FF8B00"}} /> Distance from orange ball: {!data ? "Loading..." : data.orange.dist} </p>
           <p style={{paddingLeft: "10px"}}><FontAwesomeIcon icon="circle" style={{color: "#36B37E"}} /> Distance from green ball: {!data ? "Loading..." : data.green.dist} </p>

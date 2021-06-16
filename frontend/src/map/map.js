@@ -12,9 +12,11 @@ var client  = mqtt.connect('ws://localhost:8081', options);
 
 // MQTT topic
 client.subscribe("marsrover");
+client.subscribe("marsrovercolour");
 client.subscribe('marsrovercoord'); // topic that coodinates are sent over
 var note;
 var rotate;
+var ballselect;
 
 const Canvas = props => {
 
@@ -34,13 +36,42 @@ const Canvas = props => {
   const [mesg, setMesg] = useState();
   
   client.on('message', function (topic, message, packet) {
-    if (message.toString().length > 1) {
+    if (topic == "marsrovercoord" && message.toString().length > 1) {
       note = message.toString();
       // Updates React state with message 
       setMesg(note);
     }
-    else {
+    else if (topic == "marsrover" && message.toString() == "3" || "4" || "5") {
       rotate = message.toString();
+      setMesg(rotate);
+    }
+    else {
+      ballselect = message.toString();
+      if (ballselect == "r") {
+        client.publish("marsrover", '7', options);
+        client.publish("marsrover", !data ? "Loading..." :data.red.xcoord.toString(), options);
+        client.publish("marsrover", !data ? "Loading..." :data.red.ycoord.toString(), options);
+      }
+      if (ballselect == "o") {
+        client.publish("marsrover", '7', options);
+        client.publish("marsrover", !data ? "Loading..." :data.orange.xcoord.toString(), options);
+        client.publish("marsrover", !data ? "Loading..." :data.orange.ycoord.toString(), options);
+      }
+      if (ballselect == "g") {
+        client.publish("marsrover", '7', options);
+        client.publish("marsrover", !data ? "Loading..." :data.green.xcoord.toString(), options);
+        client.publish("marsrover", !data ? "Loading..." :data.green.ycoord.toString(), options);
+      }
+      if (ballselect == "s") {
+        client.publish("marsrover", '7', options);
+        client.publish("marsrover", !data ? "Loading..." :data.blue.xcoord.toString(), options);
+        client.publish("marsrover", !data ? "Loading..." :data.blue.ycoord.toString(), options);
+      }
+      if (ballselect == "v") {
+        client.publish("marsrover", '7', options);
+        client.publish("marsrover", !data ? "Loading..." :data.violet.xcoord.toString(), options);
+        client.publish("marsrover", !data ? "Loading..." :data.violet.ycoord.toString(), options);
+      }
     }
     });
 
@@ -55,8 +86,6 @@ const Canvas = props => {
     const imageObj1 = new Image();
     imageObj1.src = 'https://image.flaticon.com/icons/png/512/1767/1767183.png'
     imageObj1.onload = function() {
-        console.log("Coord received " + note);
-        console.log("rotate "+ rotate);
         if (rotate == "3") {
           ctx.translate(25, 25);
           ctx.rotate(-90 * Math.PI / 180);
@@ -74,12 +103,6 @@ const Canvas = props => {
           ctx.rotate(180 * Math.PI / 180);
           ctx.translate(-25, -25);
         } // south
-
-        if (rotate == "6") {
-          ctx.translate(25, 25);
-          ctx.rotate(360 * Math.PI / 180);
-          ctx.translate(-25, -25);
-        } // north 
 
         ctx.drawImage(imageObj1, (!note) ? 0 : note.substring(0,note.length/2), (!note) ? 0 : note.substring(note.length/2, note.length) , 50, 50);
     }

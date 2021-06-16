@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const app = express()
-const apiPort = 5000
+const apiPort = process.env.PORT || 5000
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
@@ -34,9 +34,9 @@ mqttclient.on('connect', function () {
 
 // Replace the uri string with your MongoDB deployment's connection string.
 const uri =
-  "mongodb://localhost:27017";
+  "mongodb+srv://ruochen:kittykat7827@cluster0.fxkkc.mongodb.net/map?retryWrites=true&w=majority";
 
-const client = new MongoClient(uri);
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 MongoClient.connect(uri, function(error, client) {
     var database = client.db('map')
@@ -46,7 +46,7 @@ MongoClient.connect(uri, function(error, client) {
 
     var collection = database.collection('balls');
     collection.createIndex( 
-    { "topic" : 1, "xcoord" : 1, "ycoord" : 1, "dist" : 1 } );
+    { "colour" : 1, "xcoord" : 1, "ycoord" : 1, "dist" : 1 } );
 
     mqttclient.on('message', function (topic, message) {
         console.log(message.toString());
@@ -92,5 +92,15 @@ async function run() {
   }
 }
 run().catch(console.dir);
+
+// Accessing the path module
+const path = require("path");
+
+// Step 1:
+app.use(express.static(path.resolve(__dirname, "./frontend/build")));
+// Step 2:
+app.get("*", function (request, response) {
+  response.sendFile(path.resolve(__dirname, "./frontend/build", "index.html"));
+});
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))

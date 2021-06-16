@@ -8,7 +8,7 @@ const colourOptions = [
   { value: 'r', label: 'Red', color: '#FF5630' },
   { value: 'o', label: 'Orange', color: '#FF8B00' },
   { value: 'g', label: 'Green', color: '#36B37E' },
-  { value: 's', label: 'Sky blue', color: '#00B8D9' },
+  { value: 's', label: 'Blue', color: '#00B8D9' },
   { value: 'v', label: 'Violet', color: '#5243AA' },
 ];
 
