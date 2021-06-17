@@ -63,7 +63,7 @@ const Canvas = props => {
         client.publish("marsrover", !data ? "Loading..." :data.green.xcoord.toString(), options);
         client.publish("marsrover", !data ? "Loading..." :data.green.ycoord.toString(), options);
       }
-      if (ballselect == "s") {
+      if (ballselect == "b") {
         client.publish("marsrover", '7', options);
         client.publish("marsrover", !data ? "Loading..." :data.blue.xcoord.toString(), options);
         client.publish("marsrover", !data ? "Loading..." :data.blue.ycoord.toString(), options);
