@@ -45,20 +45,19 @@ MongoClient.connect(uri, function(error, client) {
 
     var collection = database.collection('balls');
     collection.createIndex( 
-    { "colour" : 1, "xcoord" : 1, "ycoord" : 1, "dist" : 1 } );
+    { "colour" : 1, "xcoord" : 1, "ycoord" : 1} );
 
     mqttclient.on('message', function (topic, message) {
         var str = message.toString();
         console.log(str);
-        var array = str.split(',');
         
-        var filter = {colour: String.fromCharCode(parseInt(array[0].toString(), 16))};
+        var filter = {colour: String.fromCharCode(parseInt(str.substring(0,2), 16))}; // 01
         const options = { upsert: true };
         var messageObject = { $set: {
-            colour: String.fromCharCode(parseInt(array[0].toString(), 16)),
-            xcoord: parseFloat(array[1].toString()),
-            ycoord: parseFloat(array[2].toString()),
-            dist: parseFloat(array[3].toString()),
+            colour: String.fromCharCode(parseInt(str.substring(0,2), 16)),
+            xcoord: parseFloat(str.substring(2,6)), //2345
+            ycoord: parseFloat(str.substring(6,9)), //678
+            // dist: parseFloat(array[3].toString()),
         }};
 
         collection.findOneAndUpdate(filter, messageObject, options, function(error, result) {
