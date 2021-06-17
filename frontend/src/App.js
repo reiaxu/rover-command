@@ -43,8 +43,7 @@ function Frontend() {
   const [data, setData] = React.useState(null);
 
     React.useEffect(() => {
-      // fetch("/api")
-      fetch("https://mars-rover-final.herokuapp.com/api")
+      fetch("http://localhost:5000/api")
         .then((res) => res.json())
         .then((data) => setData(data));
         
