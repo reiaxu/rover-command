@@ -26,7 +26,6 @@ var options = {
 };
 
 var mqttclient   = mqtt.connect(mqttUri, options);
-
 mqttclient.on('connect', function () {
     mqttclient.subscribe("marsroverballs");
     console.log('connected')
