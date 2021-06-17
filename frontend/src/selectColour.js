@@ -4,12 +4,12 @@ import chroma from 'chroma-js';
 import Select from 'react-select';
 
 const colourOptions = [
-  { value: 'm', label: 'Manual', color: '#666666' },
-  { value: 'r', label: 'Red', color: '#FF5630' },
-  { value: 'o', label: 'Orange', color: '#FF8B00' },
-  { value: 'g', label: 'Green', color: '#36B37E' },
-  { value: 'b', label: 'Blue', color: '#00B8D9' },
-  { value: 'v', label: 'Violet', color: '#5243AA' },
+  { value: 'M', label: 'Manual', color: '#666666' },
+  { value: 'R', label: 'Red', color: '#FF5630' },
+  { value: 'O', label: 'Orange', color: '#FF8B00' },
+  { value: 'G', label: 'Green', color: '#36B37E' },
+  { value: 'B', label: 'Blue', color: '#00B8D9' },
+  { value: 'V', label: 'Violet', color: '#5243AA' },
 ];
 
 const dot = (color = '#ccc') => ({

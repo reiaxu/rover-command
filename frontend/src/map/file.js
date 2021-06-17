@@ -13,10 +13,8 @@ var client  = mqtt.connect('ws://localhost:8081', options);
 // MQTT topic
 client.subscribe("marsrover");
 client.subscribe("marsrovercolour");
-client.subscribe('marsrovercoord'); // topic that coodinates are sent over
+// client.subscribe('marsrovercoord'); // topic that coodinates are sent over
 var note;
-var notex;
-var notey;
 var rotate;
 var ballselect;
 
@@ -39,11 +37,9 @@ const Canvas = props => {
   
   client.on('message', function (topic, message, packet) {
     if (topic == "marsrovercoord" && message.toString().length > 1) {
-      note = message.toString().split(',');
-      notex = note[0];
-      notey = note[1];
-      setMesg(notex);
-      setMesg(notey);
+      note = message.toString();
+      // Updates React state with message 
+      setMesg(note);
     }
     else if (topic == "marsrovercolour") {
       ballselect = message.toString();
@@ -63,10 +59,10 @@ const Canvas = props => {
         client.publish("marsrover", !data ? "Loading..." :'7c'.concat(data.violet.xcoord.toString(), 'x', data.violet.ycoord.toString(), 'y.'));
       }
     }
-    else if (topic == "marsrover" && message.toString() == "3." || "4." || "5.") {
-      rotate = message.toString();
-      setMesg(rotate);
-    }
+    // else if (topic == "marsrover" && message.toString() == "3." || "4." || "5.") {
+    //   rotate = message.toString();
+    //   setMesg(rotate);
+    // }
   });
 
   const canvasRef = useRef(null)
@@ -80,26 +76,29 @@ const Canvas = props => {
     const imageObj1 = new Image();
     imageObj1.src = 'https://image.flaticon.com/icons/png/512/1767/1767183.png'
     imageObj1.onload = function() {
-        // if (rotate == "3.") {
-        //   ctx.translate(25, 25);
-        //   ctx.rotate(-90 * Math.PI / 180);
-        //   ctx.translate(-25, -25);
-        // } // west
+        if (rotate == "3.") {
+          ctx.translate(25, 25);
+          ctx.rotate(-90 * Math.PI / 180);
+          ctx.translate(-25, -25);
+        } // west
 
-        // if (rotate == "4.") {
-        //   ctx.translate(25, 25);
-        //   ctx.rotate(90 * Math.PI / 180);
-        //   ctx.translate(-25, -25);
-        // } // east
+        if (rotate == "4.") {
+          ctx.translate(25, 25);
+          ctx.rotate(90 * Math.PI / 180);
+          ctx.translate(-25, -25);
+        } // east
 
-        // if (rotate == "5.") {
-        //   ctx.translate(25, 25);
-        //   ctx.rotate(180 * Math.PI / 180);
-        //   ctx.translate(-25, -25);
-        // } // south
-
-        ctx.drawImage(imageObj1, (!notex) ? -25 : notex.substring(1,notex.length)-25, (!notey) ? -30 : notey.substring(0, notey.length-1)-30 , 50, 50);
+        if (rotate == "5.") {
+          ctx.translate(25, 25);
+          ctx.rotate(180 * Math.PI / 180);
+          ctx.translate(-25, -25);
+        } // south
+        //round brackets separated by comma
+        ctx.drawImage(imageObj1, (!note) ? 0 : note.substring(0,note.length/2), (!note) ? 0 : note.substring(note.length/2, note.length) , 50, 50);
     }
+
+
+
       const red = !data ? "Loading..." : 
       ctx.fillStyle = '#FF5630'
       ctx.beginPath()

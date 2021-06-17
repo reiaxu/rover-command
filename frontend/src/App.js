@@ -60,7 +60,7 @@ function Frontend() {
 
   client.on("connect",function(){	
     console.log("connected  "+ client.connected);
-    client.publish("marsrover", '0', options);
+    //client.publish("marsrover", '0.', options);
     setConnectionStatus("Connected");
   });
 
@@ -73,7 +73,6 @@ function Frontend() {
     note = message.toString();
     // Updates React state with message 
     setMesg(note);
-    console.log(note);
     });
 
     function sendMessage(topic,msg,options){
@@ -114,13 +113,13 @@ function Frontend() {
           </header>
         
           <header className="App-buttons">
-            <img src={turn} className="App-logo" alt="180-button" style={{width: "15%", height: "15%", marginTop: "65px"}} onClick={() => sendMessage('marsrover', '5', options)} />
-            <img src={up} className="App-logo" alt="up-button" onClick={() => sendMessage('marsrover', '1', options)} />
-            <img src={rotate} className="App-logo" alt="360-button" style={{width: "15%", height: "15%", marginTop: "65px"}} onClick={() => sendMessage('marsrover', '6', options)} />
+            <img src={turn} className="App-logo" alt="180-button" style={{width: "15%", height: "15%", marginTop: "65px"}} onClick={() => sendMessage('marsrover', '5.', options)} />
+            <img src={up} className="App-logo" alt="up-button" onClick={() => sendMessage('marsrover', '1.', options)} />
+            <img src={rotate} className="App-logo" alt="360-button" style={{width: "15%", height: "15%", marginTop: "65px"}} onClick={() => sendMessage('marsrover', '6.', options)} />
             <br></br>
-            <img src={left} className="App-logo" alt="left-button" onClick={() => sendMessage('marsrover', '3', options)} />
-            <img src={down} className="App-logo" alt="down-button" onClick={() => sendMessage('marsrover', '2', options)} />
-            <img src={right} className="App-logo" alt="right-button" onClick={() => sendMessage('marsrover', '4', options)} />
+            <img src={left} className="App-logo" alt="left-button" onClick={() => sendMessage('marsrover', '3.', options)} />
+            <img src={down} className="App-logo" alt="down-button" onClick={() => sendMessage('marsrover', '2.', options)} />
+            <img src={right} className="App-logo" alt="right-button" onClick={() => sendMessage('marsrover', '4.', options)} />
           </header>
         </div>
       </div>

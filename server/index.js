@@ -48,14 +48,17 @@ MongoClient.connect(uri, function(error, client) {
     { "colour" : 1, "xcoord" : 1, "ycoord" : 1, "dist" : 1 } );
 
     mqttclient.on('message', function (topic, message) {
-        console.log(message.toString());
-        var filter = {colour: message.toString().substring(0,1)};
+        var str = message.toString();
+        console.log(str);
+        var array = str.split(',');
+        
+        var filter = {colour: String.fromCharCode(parseInt(array[0].toString(), 16))};
         const options = { upsert: true };
         var messageObject = { $set: {
-            colour: message.toString().substring(0,1),
-            xcoord: parseInt(message.toString().substring(1,5)),
-            ycoord: parseInt(message.toString().substring(5,9)),
-            dist: parseInt(message.toString().substring(9,13)),
+            colour: String.fromCharCode(parseInt(array[0].toString(), 16)),
+            xcoord: parseFloat(array[1].toString()),
+            ycoord: parseFloat(array[2].toString()),
+            dist: parseFloat(array[3].toString()),
         }};
 
         collection.findOneAndUpdate(filter, messageObject, options, function(error, result) {
@@ -75,11 +78,11 @@ async function run() {
     const database = client.db('map');
     const balls = database.collection('balls');
 
-    const red = await balls.findOne({ colour: 'r' }); 
-    const orange = await balls.findOne({ colour: 'o' }); 
-    const green = await balls.findOne({ colour: 'g' }); 
-    const blue = await balls.findOne({ colour: 'b' }); 
-    const violet = await balls.findOne({ colour: 'v' }); 
+    const red = await balls.findOne({ colour: 'R' }); 
+    const orange = await balls.findOne({ colour: 'O' }); 
+    const green = await balls.findOne({ colour: 'G' }); 
+    const blue = await balls.findOne({ colour: 'B' }); 
+    const violet = await balls.findOne({ colour: 'V' }); 
 
     console.log(red,orange,green,blue,violet);
     app.get("/api", (req, res) => {
