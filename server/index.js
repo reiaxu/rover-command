@@ -28,7 +28,7 @@ var options = {
 var mqttclient   = mqtt.connect(mqttUri, options);
 mqttclient.on('connect', function () {
     mqttclient.subscribe("marsroverballs");
-    console.log('connected')
+    // console.log('connected')
 });
 
 // Replace the uri string with your MongoDB deployment's connection string.
@@ -49,8 +49,8 @@ MongoClient.connect(uri, function(error, client) {
 
     mqttclient.on('message', function (topic, message) {
         var str = message.toString();
-        console.log(str);
-        
+        // console.log(str);
+
         var filter = {colour: String.fromCharCode(parseInt(str.substring(0,2), 16))}; // 01
         const options = { upsert: true };
         var messageObject = { $set: {
@@ -62,7 +62,7 @@ MongoClient.connect(uri, function(error, client) {
 
         collection.findOneAndUpdate(filter, messageObject, options, function(error, result) {
             if(error != null) {
-                console.log("ERROR: " + error);
+                // console.log("ERROR: " + error);
             }
         });
     });

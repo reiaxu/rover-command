@@ -29,7 +29,7 @@ const Canvas = props => {
         
     }, []);
     React.useEffect(()=>{        
-      console.log(data);
+      // console.log(data);
   },[data]);
 
   // Sets default React state 

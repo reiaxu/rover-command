@@ -78,7 +78,7 @@ export default class App extends React.Component {
     };
     handleChange = selectedOption => {
       this.setState({ selectedOption });
-      console.log(`Option selected:`, selectedOption.value);
+      // console.log(`Option selected:`, selectedOption.value);
       if (client.connected == true){
         client.publish("marsrovercolour",selectedOption.value, options);
         }
