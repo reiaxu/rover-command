@@ -23,7 +23,8 @@ const Canvas = props => {
   const [data, setData] = React.useState(null);
 
     React.useEffect(() => {
-      fetch("/api")
+      // fetch("/api")
+      fetch("https://mars-rover-final.herokuapp.com/api")
         .then((res) => res.json())
         .then((data) => setData(data));
         
