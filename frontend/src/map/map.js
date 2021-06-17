@@ -40,8 +40,8 @@ const Canvas = props => {
   client.on('message', function (topic, message, packet) {
     if (topic == "marsrovercoord" && message.toString().length > 1) {
       note = message.toString().split(',');
-      notex = note[0];
-      notey = note[1];
+      notex = note[0].substring(1,note[0].length);
+      notey = note[1].substring(0, note[1].length-1);
       setMesg(notex);
       setMesg(notey);
     }
@@ -63,10 +63,10 @@ const Canvas = props => {
         client.publish("marsrover", !data ? "Loading..." :'7c'.concat(data.violet.xcoord.toString(), 'x', data.violet.ycoord.toString(), 'y.'));
       }
     }
-    else if (topic == "marsrover" && message.toString() == "3." || "4." || "5.") {
-      rotate = message.toString();
-      setMesg(rotate);
-    }
+    // else if (topic == "marsrover" && message.toString() == "3." || "4." || "5.") {
+    //   rotate = message.toString();
+    //   setMesg(rotate);
+    // }
   });
 
   const canvasRef = useRef(null)
@@ -98,7 +98,7 @@ const Canvas = props => {
         //   ctx.translate(-25, -25);
         // } // south
 
-        ctx.drawImage(imageObj1, (!notex) ? -25 : 10*(notex.substring(1,notex.length))-25, (!notey) ? -30 : 10*(notey.substring(0, notey.length-1))-30, 50, 50);
+        ctx.drawImage(imageObj1, (!notex) ? -25 : 10*(notex)-25, (!notey) ? -30 : 10*(notey)-30, 50, 50);
     }
       const red = !data ? "Loading..." : 
       ctx.fillStyle = '#FF5630'
